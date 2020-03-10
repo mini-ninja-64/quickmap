@@ -52,4 +52,8 @@ int writeBMP(char const* filename, unsigned int width, unsigned int height, unsi
 
 BMP_FILE * readBMP(char const* path);
 
+int setPixel(int x, int y, unsigned char r, unsigned char g, unsigned char b, BMP_FILE * bmp);
+
+void destroyBMP(BMP_FILE * bmp);
+BMP_FILE * newBMP(unsigned int w, unsigned int h);
 #endif /* QUICKMAP_H */

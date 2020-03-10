@@ -1,17 +1,24 @@
 #include "quickmap.h"
+#include <stdio.h>
+#include <stdlib.h>
 
-#define WIDTH 50
-#define HEIGHT 100
+#define WIDTH 1002
+#define HEIGHT 1002
 
 int main(int argc, char const *argv[])
 {
-	unsigned char pix[3*WIDTH*HEIGHT];
-	for(int i = 0; i < WIDTH*HEIGHT*3; i+=3){
-		pix[i] = 0; // r 0 3 6
-		pix[i+1] = 0; // g 1 4 7
-		pix[i+2] = 255; // b 2 5 8
+	BMP_FILE * myBmp = newBMP(WIDTH,HEIGHT);
+
+	for(int y = 0; y < HEIGHT; y++){
+		for(int x = 0; x < WIDTH; x++){
+			setPixel(x, y, 0xFF, y%0xFF, 0xFF, myBmp);
+		}
 	}
-	writeBMP("test.bmp",WIDTH,HEIGHT,pix);
-//	printf("%i, %i", file->w, file->h);
+	// writeBMP(argv[1],myBmp->w,myBmp->h,myBmp->pixels);
+	destroyBMP(myBmp);
+
+	myBmp = readBMP("Test-Images/MARBLES.bmp");
+	writeBMP(argv[1],myBmp->w,myBmp->h,myBmp->pixels);
+
 	return 0;
 }
