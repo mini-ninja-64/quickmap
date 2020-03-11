@@ -1,4 +1,4 @@
-#include "quickmap.h"
+#include <quickmap.h>
 #include <stdio.h>
 #include <stdlib.h>
 
