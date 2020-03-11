@@ -35,12 +35,10 @@ int writePixels (char const* filename, unsigned int width, unsigned int height, 
 		(newFileSize&0xFF000000) >> 24
 	};
 
-	int line=0;
-	int currX=0;
-	int currY=0;
-	int bytePos = 0;
+	unsigned int currX=0;
+	unsigned int currY=0;
 
-	for(int i = 0; i < paddedPixelBufferSize; i+=3) {
+	for(unsigned int i = 0; i < paddedPixelBufferSize; i+=3) {
 		int pos = 3*((width-1-currX)+((width)*currY));
 
 		pixelBuffer[i] = imagePixels[pixelBufferSize-1-pos-0];
@@ -52,7 +50,7 @@ int writePixels (char const* filename, unsigned int width, unsigned int height, 
 			currX = 0;
 			currY++;
 			if (scanLinePadding){
-				for(int p = 0; p < scanLinePadding; p++){
+				for(unsigned int p = 0; p < scanLinePadding; p++){
 					pixelBuffer[i+3+p] = 0x00;
 				}
 				i+=scanLinePadding;
@@ -135,8 +133,8 @@ unsigned char * readPixels (char const* filename, unsigned int * width, unsigned
 	fread (bitmapPixelBuffer, sizeof(unsigned char), paddedPixelBufferSize, fptr);
 	fclose (fptr);
 
-	for(int y = 0; y < heightFromBitmap; y++){
-		for(int x = 0; x < widthFromBitmap; x++){
+	for(unsigned int y = 0; y < heightFromBitmap; y++){
+		for(unsigned int x = 0; x < widthFromBitmap; x++){
 			int posFlipped = 3*((widthFromBitmap-1-x)+(widthFromBitmap*y));
 			int pos = 3*((x)+(widthFromBitmap*y));
 			int scanLineOffset = y * scanLinePadding;
