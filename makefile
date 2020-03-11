@@ -18,15 +18,15 @@ INCLUDE_DIR = include
 CFLAGS += -I$(INCLUDE_DIR)
 
 # set name of library file
-LIBRARYNAME = libquickmap
+LIB_NAME = quickmap
 
 # lib paths
 SHARED_LIB_PATH = $(OUTPUT_DIR)/shared
 STATIC_LIB_PATH = $(OUTPUT_DIR)/static
 SHARED_LIB_EXTENSION = .so
 STATIC_LIB_EXTENSION = .a
-SHARED_LIB = $(SHARED_LIB_PATH)/$(LIBRARYNAME)$(SHARED_LIB_EXTENSION)
-STATIC_LIB = $(STATIC_LIB_PATH)/$(LIBRARYNAME)$(STATIC_LIB_EXTENSION)
+SHARED_LIB = $(SHARED_LIB_PATH)/lib$(LIB_NAME)$(SHARED_LIB_EXTENSION)
+STATIC_LIB = $(STATIC_LIB_PATH)/lib$(LIB_NAME)$(STATIC_LIB_EXTENSION)
 
 SOURCES = $(wildcard $(SRC_DIR)/*.c)
 HEADERS = $(wildcard $(INCLUDE_DIR)/*.h)
@@ -39,13 +39,11 @@ $(OBJECTS): $(SOURCES) $(HEADERS)
 
 $(SHARED_LIB): $(OBJECTS)
 	$(info  Linking shared library)
-	mkdir -p $(OUTPUT_DIR)
 	mkdir -p $(SHARED_LIB_PATH)
 	$(CC) -shared -o $(SHARED_LIB) $(OBJECTS)
 
 $(STATIC_LIB): $(OBJECTS)
 	$(info  Linking static library)
-	mkdir -p $(OUTPUT_DIR)
 	mkdir -p $(STATIC_LIB_PATH)
 	$(AR) $(ARFLAGS) $(STATIC_LIB) $(OBJECTS)
 
