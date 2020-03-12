@@ -2,40 +2,30 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define WIDTH 4000
+#define HEIGHT 4000
 
 int main(int argc, char const *argv[]) {
-	BMP * myBmp = readBMP(argv[1]);
-	// BMP * myBmp = newBMP(1000,1000);
+	BMP * myBmp = newBMP (4000,4000);
 
-	printf("%i, %i\n", myBmp->w, myBmp->h);
+	if (!myBmp) {
+		printf("Error creating bitmap\n");
+		return -1;
+	}
 
-	// for(int y = 0; y < myBmp->h; y++){
-	// 	for(int x = 0; x < myBmp->w; x++){
-	// 		// printf("x: %i, y: %i\n", x, y);
-	// 		// setPixel(x, y, 0xFF, 0x00, 0x00, myBmp);
-	// 		// setPixelChannel(x, y, B_Channel, 0x00, myBmp);
-	// 	}
-	// }
+	for (unsigned int y = 0; y < myBmp->h; y++) {
+		for (unsigned int x = 0; x < myBmp->w; x++) {
+			setPixel(x, y, x%0xFF, y%0xFF, (x+y)%0xFF, myBmp);
+		}
+	}
 
-	// for(int y = 0; y < myBmp->h; y++){
-	// 	for(int x = 0; x < myBmp->w; x++){
-	// 		setPixel(x, y, x%0xFF, y%0xFF, (x+y)%0xFF, myBmp);
-	// 	}
-	// }
+	if (argc >= 2) {
+		writeBMP(argv[1],myBmp);
+	} else {
+		printf("No file path given\n");
+	}
 
-	writeBMP(argv[2],myBmp);
 	destroyBMP(myBmp);
 
 	return 0;
 }
-
-
-// BMP * myBmp = newBMP(WIDTH,HEIGHT);
-//
-// for(int y = 0; y < HEIGHT; y++){
-// 	for(int x = 0; x < WIDTH; x++){
-// 		setPixel(x, y, x%0xFF, y%0xFF, (x+y)%0xFF, myBmp);
-// 	}
-// }
-// writeBMP(argv[1],myBmp);
-// destroyBMP(myBmp);
